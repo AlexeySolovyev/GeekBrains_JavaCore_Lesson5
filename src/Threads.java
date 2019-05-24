@@ -14,15 +14,15 @@ public class Threads {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        float[] array = new float[SIZE];
+        float[] arr = new float[SIZE];
         long stTime;
 
-        Arrays.fill(array, 1);
+        Arrays.fill(arr, 1);
 
-        float[] arr10 = array;
+        float[] arr10 = arr;
 
         stTime = System.currentTimeMillis();  // реализация без потоков
-        calc(array, SIZE, 0);
+        calc(arr, SIZE, 0);
         System.out.printf(" without thread time: %d%n", System.currentTimeMillis() - stTime);
 
         stTime = System.currentTimeMillis();  // реализация с потоками с наследованием от Thread и без добавления arraycopry
@@ -46,8 +46,8 @@ public class Threads {
         float[] array1 = new float[H];
         float[] array2 = new float[H];
 
-        System.arraycopy(array, 0, array1, 0, H);
-        System.arraycopy(array, H, array2, 0, H);
+        System.arraycopy(arr, 0, array1, 0, H);
+        System.arraycopy(arr, H, array2, 0, H);
         List<Thread> threadList2 = new ArrayList<>();
         Thread runnableCalc1 = new Thread(new CalcRunnable(array1, H, 0));
         threadList2.add(runnableCalc1);
@@ -58,8 +58,8 @@ public class Threads {
         for (Thread thr : threadList2) {
             thr.join();
         }
-        System.arraycopy(array1, 0, array, 0, H);
-        System.arraycopy(array2, 0, array, H, H);
+        System.arraycopy(array1, 0, arr, 0, H);
+        System.arraycopy(array2, 0, arr, H, H);
 
         System.out.printf(" thread with copy time: %d%n", System.currentTimeMillis() - stTime);
     }
